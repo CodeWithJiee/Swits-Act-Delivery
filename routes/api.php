@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\StoreController;
 use App\Http\Controllers\API\UsersController;
+use App\Http\Controllers\API\DeliveryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,12 @@ Route::middleware('auth:sanctum')->group( function () {
     // Route::resource('trees', TreeController::class);
     Route::get('/trees', [TreeController::class, 'index']);
     Route::get('/trees/{lead}', [TreeController::class, 'show']);
+
+    // Deliveries Routes
+    Route::resource('deliveries', DeliveryController::class);
+    Route::patch('/deliveries/{id}/status', [DeliveryController::class, 'updateStatus']);
+    Route::patch('/deliveries/{id}/payment-status', [DeliveryController::class, 'updatePaymentStatus']);
+    Route::patch('/deliveries/{id}/assign-rider', [DeliveryController::class, 'assignRider']);
+    Route::get('/deliveries/store/{storeId}', [DeliveryController::class, 'getByStore']);
+    Route::get('/deliveries/rider/{riderId}', [DeliveryController::class, 'getByRider']);
 });
